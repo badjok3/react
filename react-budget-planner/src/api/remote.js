@@ -12,6 +12,7 @@ async function register(name, email, password) {
             password
         })
     });
+
     return await res.json();
 }
 

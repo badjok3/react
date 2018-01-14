@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import { removeExpense, getMonthDetails } from '../../api/remote';
-import { Link } from 'react-router-dom';
+import {removeExpense, getMonthDetails} from '../../api/remote';
+import {Link} from 'react-router-dom';
 import toastr from 'toastr';
 
 export default class ExpensesSection extends Component {
@@ -8,10 +8,20 @@ export default class ExpensesSection extends Component {
         super(props);
 
         this.state = {
-            error: ''
+            error: '',
+            expenses: []
         };
 
         this.onDeleteHandler = this.onDeleteHandler.bind(this);
+    }
+
+    componentDidMount() {
+        getMonthDetails(this.props.year, this.props.month)
+            .then((currentMonth) => {
+                this.setState({
+                    expenses: currentMonth.expenses
+                });
+            });
     }
 
     async onDeleteHandler(e, id) {
@@ -19,12 +29,18 @@ export default class ExpensesSection extends Component {
 
         const res = await removeExpense(id);
         if (!res.success) {
-            this.setState({ error: res });
+            this.setState({error: res});
             return;
         }
 
+        const currentMonth = await getMonthDetails(this.props.year, this.props.month);
+        this.setState({
+            expenses: currentMonth.expenses
+        });
+
         toastr.success('Expense deleted successfully');
     }
+
     render() {
         let errors = null;
         if (this.state.error) {
@@ -42,7 +58,8 @@ export default class ExpensesSection extends Component {
             <div className="col-md-8 space-top">
                 <div className="row">
                     <h4 className="col-md-9">Expenses</h4>
-                    <Link to={`/create/${this.props.year}/${this.props.month}`} className="btn btn-secondary ml-2 mb-2">Add expenses</Link>
+                    <Link to={`/create/${this.props.year}/${this.props.month}`} className="btn btn-secondary ml-2 mb-2">Add
+                        expenses</Link>
                 </div>
                 {errors}
                 <table className="table">
@@ -56,14 +73,16 @@ export default class ExpensesSection extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.props.expenses.map(e => {
+                    {this.state.expenses.map(e => {
                         return <tr key={e.id}>
                             <td>{e.name}</td>
                             <td>{e.category}</td>
                             <td>{e.amount}</td>
                             <td>{e.date}</td>
                             <td>
-                                <button className="btn btn-secondary" onClick={ev => this.onDeleteHandler(ev, e.id)}>Delete</button>
+                                <button className="btn btn-secondary" onClick={ev => this.onDeleteHandler(ev, e.id)}>
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     })}

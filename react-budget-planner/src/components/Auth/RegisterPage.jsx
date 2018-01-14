@@ -38,6 +38,7 @@ class RegisterPage extends Component {
             return;
         }
         const res = await register(this.state.name, this.state.email, this.state.password);
+
         if (!res.success) {
             this.setState({error: res});
             return;
