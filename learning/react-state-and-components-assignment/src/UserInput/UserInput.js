@@ -10,8 +10,12 @@ class UserInput extends Component {
             borderRadius: "3px"
         };
 
+        const align = {
+            textAlign: "center"
+        }
+
         return (
-            <div>
+            <div style={align}>
                 First username:
                 <input
                     type="text"

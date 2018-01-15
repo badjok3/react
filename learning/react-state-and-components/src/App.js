@@ -1,26 +1,56 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-import UserInput from './UserInput/UserInput';
-import UserOutput from './UserOutput/UserOutput';
+import Person from './Person/Person';
 
 import './App.css';
 
 class App extends Component {
     state = {
-        username: 'Daniel',
+        people: [
+            'Daniel',
+            'Selena',
+            'Leo',
+        ],
+        showPeople: false
     };
 
     onChangeHandler = (e) => {
-        this.setState({[e.target.name]: e.target.value})
+        this.setState({ people: [
+            e.target.value,
+            'Selena',
+            'Leo'
+        ] })
     };
 
+    showPeopleHandler = () => {
+        let show = !this.state.showPeople;
+
+        this.setState({
+            showPeople: show
+        })
+    }
+
+    deletePersonHandler = (personIndex) => {
+        const people = [...this.state.people];
+        people.splice(personIndex, 1);
+        this.setState({ people: people });
+    }
+
     render() {
+        let people = null;
+
+        if (this.state.showPeople) {
+            people = (
+                <div>
+                    {this.state.people.map((n, index) => <Person deletePerson={() => { this.deletePersonHandler(index)} } name={n} key={index} changeHandler={this.onChangeHandler} />)}
+                </div>
+            )
+        }
+
         return (
             <div className="App">
-                <UserInput changeHandler={this.onChangeHandler} username={this.state.username} />
-                <UserOutput username={this.state.username} />
-                <UserOutput username="Selena" />
-                <UserOutput username="Leo" />
+                <button className="btn" onClick={this.showPeopleHandler}>Toggle people</button>
+                {people}
             </div>
         );
     }
