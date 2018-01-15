@@ -1,0 +1,41 @@
+.App {
+  margin: 16px;
+}
+
+.textInput {
+  border: 2px solid dodgerblue;
+  border-radius: 3px;
+  margin: 0 40%;
+  padding: 6px;
+}
+
+.counter {
+  border: 1px solid dodgerblue;
+  border-radius: 3px;
+  padding: 7px;
+  margin: 10px 20px;
+  width: 2%;
+  text-align: center;
+}
+
+.validText {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 6px;
+  margin: 3px 20px;
+  background-color: green;
+  color: white;
+  width: 20%;
+  text-align: center;
+}
+
+.invalidText {
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 6px;
+  margin: 3px 20px;
+  background-color: rgb(216, 39, 39);
+  color: white;
+  text-align: center;
+  width: 20%;  
+}
