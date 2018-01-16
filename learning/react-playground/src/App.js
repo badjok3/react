@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Radium, { StyleRoot } from 'radium';
 import Person from './Person/Person';
 
-import './App.css';
+import styles from './App.css';
 
 class App extends Component {
     state = {
@@ -52,11 +51,7 @@ class App extends Component {
             border: '#222 solid 1px',
             borderRadius: '3px',
             backgroundColor: 'green',
-            color: 'white',
-            ':hover': {
-                backgroundColor: 'lightgreen',
-                color: 'black'
-            }
+            color: 'white'
         }
 
         if (this.state.showPeople) {
@@ -71,31 +66,25 @@ class App extends Component {
             )
 
             style.backgroundColor = 'red';
-            style[':hover'] = {
-                backgroundColor: 'salmon',
-                color: 'black'
-            }
         }
 
         let classes = [];
 
         if (this.state.people.length <= 2) {
-            classes.push('red');
+            classes.push( styles.red );
         }
         if (this.state.people.length <= 1) {
-            classes.push('bold');
+            classes.push( styles.bold );
         }
 
         return (
-            <StyleRoot>
-                <div className="App">
+                <div className={styles.App}>
                     <p className={classes.join(' ')}> Styling really works</p>
                     <button style={style} onClick={this.showPeopleHandler}>Toggle people</button>
                     {people}
                 </div>
-            </StyleRoot>
         );
     }
 }
 
-export default Radium(App);
+export default App;
