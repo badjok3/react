@@ -5,20 +5,20 @@ const ADD_COUNTER = 'ADD_COUNTER';
 const REMOVE_COUNTER = 'REMOVE_COUNTER';
 
 const actions = {
-    increment: () => {
-        return {type: INCREMENT}
+    increment: (i) => {
+        return {type: INCREMENT, index: i}
     },
-    decrement: () => {
-        return {type: DECREMENT}
+    decrement: (i) => {
+        return {type: DECREMENT, index: i}
     },
-    clear: () => {
-        return {type: CLEAR}
+    clear: (i) => {
+        return {type: CLEAR, index: i}
     },
     addCounter: () => {
         return {type: ADD_COUNTER}
     },
-    removeCounter: () => {
-        return {type: REMOVE_COUNTER}
+    removeCounter: (i) => {
+        return {type: REMOVE_COUNTER, index: i}
     }
 }
 

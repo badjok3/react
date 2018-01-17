@@ -3,23 +3,25 @@ import Counter from './Counter'
 
 import { connect } from 'react-redux'
 import actions from '../../store/actions/actions'
+import { store } from '../../index';
+
+import './Counter.css';
 
 class CounterWrap extends Component {
+
     render() {
         return (
             <div>
-                {/*sadly it only works as a console app.. if you could find my mistake and get it to visualize
-                that'd be great. I can't subscribe to ReactDOM.render(), because the only one i've got is in index.js
-                and it doesn't re-render the ConterWrap component, just the App one*/}
-                {this.props.store.subscribe(() => {
-                    this.props.store.getState().map(c => {
-                        console.log(c);
-                        return <Counter key={c.index} value={c.counter} />
-                    })
+                {this.props.counters.map(c => {
+                    return (
+                        <div key={c.index + Math.random()} className='counter'>
+                            <Counter  value={c.counter} index={c.index}/>
+                            <button className='btn' onClick={() => this.props.onRemoveCounter(c.index)}>Remove</button>
+                        </div>
+                    )
                 })}
-
-                <button onClick={this.props.onAddCounter}>Add</button>
-                <button onClick={this.props.onRemoveCounter}>Remove</button>
+                
+                <button className='btn' onClick={this.props.onAddCounter}>Add</button>
             </div>
         )
     }
@@ -28,9 +30,13 @@ class CounterWrap extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         onAddCounter: () => dispatch(actions.addCounter()),
-        onRemoveCounter: () => dispatch(actions.removeCounter())
+        onRemoveCounter: (i) => dispatch(actions.removeCounter(i))
     }
 }
 
-
-export default connect(null, mapDispatchToProps)(CounterWrap)
+const mapStateToProps = state => {
+    return {
+        counters: store.getState()
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(CounterWrap)

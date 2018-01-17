@@ -7,9 +7,9 @@ class Counter extends Component {
         return (
             <div>
                 <h1>{this.props.value}</h1>
-                <button onClick={this.props.onIncrementCounter}>+</button>
-                <button onClick={this.props.onDecrementCounter}>-</button>
-                <button onClick={this.props.onClearCounter}>Clear</button>
+                <button className='btn' onClick={() => this.props.onIncrementCounter(this.props.index)}>+</button>
+                <button className='btn' onClick={() => this.props.onDecrementCounter(this.props.index)}>-</button>
+                <button className='btn' onClick={() => this.props.onClearCounter(this.props.index)}>Clear</button>
             </div>
         )
     }
@@ -17,9 +17,9 @@ class Counter extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIncrementCounter: () => dispatch(actions.increment()),
-        onDecrementCounter: () => dispatch(actions.decrement()),
-        onClearCounter: () => dispatch(actions.clear())
+        onIncrementCounter: (i) => dispatch(actions.increment(i)),
+        onDecrementCounter: (i) => dispatch(actions.decrement(i)),
+        onClearCounter: (i) => dispatch(actions.clear(i))
     }
 }
 

@@ -8,10 +8,10 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './store/reducers/reducer'
 
-const store = createStore(reducer);
+export const store = createStore(reducer);
 
 ReactDOM.render(
     <Provider store={store}>
-        <App store={store}/>
+        <App />
     </Provider>, document.getElementById('root'));
 registerServiceWorker();

@@ -5,44 +5,41 @@ const initialStore = [{
 
 const reducer = (store = initialStore, action) => {
     if (action.type === 'INCREMENT') {
-        return [
-            ...store.slice(0, action.index),
-            Object.assign({}, store[action.index], {
-                value: store[action.index].value + 1
-            }, ...store.slice(action.index + 1))
-        ]
+        let currentStore = [...store];
+        let counterIndex = currentStore.findIndex(c => c.index === action.index);
+        currentStore[counterIndex].counter += 1; 
+        
+        return currentStore;
     }
     if (action.type === 'DECREMENT') {
-        return [
-            ...store.slice(0, action.index),
-            Object.assign({}, store[action.index], {
-                value: store[action.index].value - 1
-            }, ...store.slice(action.index + 1))
-        ]
+        let currentStore = [...store];
+        let counterIndex = currentStore.findIndex(c => c.index === action.index);
+        currentStore[counterIndex].counter -= 1;
+
+        return currentStore;
     }
     if (action.type === 'CLEAR') {
-        return [
-            ...store.slice(0, action.index),
-            Object.assign({}, store[action.index], {
-                value: 0
-            }, ...store.slice(action.index + 1))
-        ]
+        let currentStore = [...store];
+        let counterIndex = currentStore.findIndex(c => c.index === action.index);
+        currentStore[counterIndex].counter = 0;
+        
+        return currentStore;
     }
     if (action.type === 'ADD_COUNTER') {
-        console.log(store);
-        return [
-            ...store,
-            {
-                index: store.length,
-                counter: 0
-            }
-        ]
+        
+       let currentStore = [...store];
+       currentStore.push({
+           index: store.length,
+           counter: 0
+       });
+
+       return currentStore;
     }
     if (action.type === 'REMOVE_COUNTER') {
-        return [
-            ...store,
-            store.slice(store.length - 1)
-        ]
+        let currentStore = [...store];
+        currentStore.splice(action.index, 1);
+
+        return currentStore;
     }
 
     return store

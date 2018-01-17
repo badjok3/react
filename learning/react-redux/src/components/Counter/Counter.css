@@ -1,0 +1,22 @@
+.counter {
+    border: 1px solid rgb(15, 144, 153);
+    border-radius: 3px;
+    box-shadow: 2px 2px gray;
+    margin: 10px 39%;
+    padding: 16px;
+    width: 20%;
+    
+}
+
+.btn {
+    border: 1px solid rgb(15, 144, 153);
+    border-radius: 3px;
+    padding: 10px;
+    margin: 3px;
+    width: auto;
+}
+
+.btn:hover {
+    background-color: rgb(53, 190, 83);
+    color: white;
+}
