@@ -1,0 +1,20 @@
+.AddPerson {
+    text-align: center;
+    margin: 30px;
+}
+
+.AddPerson input {
+    margin: 5px;
+    padding: 5px;
+}
+
+.AddPerson button {
+    border: 1px solid darkcyan;
+    border-radius: 3px;
+    padding: 6px;
+}
+
+.AddPerson button:hover {
+    color: white;
+    background-color: darkcyan;
+}
