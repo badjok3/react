@@ -4,22 +4,15 @@ import {getYear} from '../../api/remote'
 import MonthCard from './MonthCard';
 
 class ListYear extends Component {
-    constructor() {
-        super();
-
-        this.state = {
+        state = {
             months: []
         };
 
-        this.loadYear = this.loadYear.bind(this);
-    }
-
-    componentDidMount() {
+    componentDidMount = () => {
         this.loadYear();
-
     }
 
-    async loadYear() {
+    loadYear = async () => {
         let currentYear = await getYear(this.props.match.params.year);
         let currentMonths = [];
         let id = 1;
@@ -28,7 +21,7 @@ class ListYear extends Component {
             currentMonths.push(currentYear[month]);
             id++;
         }
-        this.setState({months: currentMonths});
+        this.setState({ months: currentMonths });
     }
 
     render() {

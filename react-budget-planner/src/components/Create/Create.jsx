@@ -5,10 +5,7 @@ import toastr from 'toastr';
 import {withRouter} from 'react-router-dom';
 
 class Create extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
+        state = {
             name: '',
             category: 'Non-essential',
             date: '',
@@ -17,17 +14,13 @@ class Create extends Component {
             submitting: ''
         };
 
-        this.onChangeHandler = this.onChangeHandler.bind(this);
-        this.onSubmitHandler = this.onSubmitHandler.bind(this);
-    }
-
-    onChangeHandler(e) {
+    onChangeHandler = (e) => {
         this.setState({[e.target.name]: e.target.value});
     }
 
-    async onSubmitHandler(e) {
+    onSubmitHandler = async (e) => {
         e.preventDefault();
-        this.setState({submitting: true});
+        this.setState({ submitting: true });
         const expense = {
             year: +this.props.match.params.year,
             month: +this.props.match.params.month,
@@ -40,7 +33,7 @@ class Create extends Component {
         const error = { message: '', errors: [] };
 
         //TODO: check fields for errors individually
-        if(expense.date < 1 || expense.date > 31) {
+        if (expense.date < 1 || expense.date > 31) {
             error.message = 'Invalid expense';
             error.errors.push('Invalid date.')
         }

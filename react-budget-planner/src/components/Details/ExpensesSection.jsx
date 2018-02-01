@@ -4,18 +4,12 @@ import {Link} from 'react-router-dom';
 import toastr from 'toastr';
 
 export default class ExpensesSection extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
+        state = {
             error: '',
             expenses: []
         };
 
-        this.onDeleteHandler = this.onDeleteHandler.bind(this);
-    }
-
-    componentDidMount() {
+    componentDidMount = () => {
         getMonthDetails(this.props.year, this.props.month)
             .then((currentMonth) => {
                 this.setState({
@@ -24,7 +18,7 @@ export default class ExpensesSection extends Component {
             });
     }
 
-    async onDeleteHandler(e, id) {
+    onDeleteHandler = async (e, id) => {
         e.preventDefault();
 
         const res = await removeExpense(id);

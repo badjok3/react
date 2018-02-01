@@ -1,30 +1,23 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Input from '../common/Input';
-import {register} from '../../api/remote';
-import {withRouter} from 'react-router-dom';
+import { register } from '../../api/remote';
+import { withRouter } from 'react-router-dom';
 import toastr from 'toastr';
 
 class RegisterPage extends Component {
-    constructor(props) {
-        super(props);
+    state = {
+        name: '',
+        email: '',
+        password: '',
+        repeat: '',
+        error: false
+    };
 
-        this.state = {
-            name: '',
-            email: '',
-            password: '',
-            repeat: '',
-            error: false
-        };
-
-        this.onChangeHandler = this.onChangeHandler.bind(this);
-        this.onSubmitHandler = this.onSubmitHandler.bind(this);
+    onChangeHandler = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
     }
 
-    onChangeHandler(e) {
-        this.setState({[e.target.name]: e.target.value});
-    }
-
-    async onSubmitHandler(e) {
+    onSubmitHandler = async (e) => {
         e.preventDefault();
         if (this.state.password !== this.state.repeat) {
             this.setState({
@@ -40,7 +33,7 @@ class RegisterPage extends Component {
         const res = await register(this.state.name, this.state.email, this.state.password);
 
         if (!res.success) {
-            this.setState({error: res});
+            this.setState({ error: res });
             return;
         }
 
@@ -88,7 +81,7 @@ class RegisterPage extends Component {
                                     name="email"
                                     className="form-control is-valid"
                                     id="new-email"
-                                    onChange={this.onChangeHandler}/>
+                                    onChange={this.onChangeHandler} />
                             </div>
                             <div className="form-group has-danger">
                                 <label className="form-control-label" htmlFor="new-password">Password</label>
@@ -97,18 +90,18 @@ class RegisterPage extends Component {
                                     className="form-control is-invalid"
                                     id="new-password"
                                     type="password"
-                                    onChange={this.onChangeHandler}/>
+                                    onChange={this.onChangeHandler} />
                             </div>
                             <div className="form-group has-danger">
                                 <label className="form-control-label" htmlFor="new-repeat-password">Repeat
                                     password</label>
                                 <Input className="form-control is-invalid"
-                                       name="repeat"
-                                       id="new-repeat-password"
-                                       type="password"
-                                       onChange={this.onChangeHandler}/>
+                                    name="repeat"
+                                    id="new-repeat-password"
+                                    type="password"
+                                    onChange={this.onChangeHandler} />
                             </div>
-                            <input type="submit" className="btn btn-secondary" value="Register"/>
+                            <input type="submit" className="btn btn-secondary" value="Register" />
                         </div>
                     </div>
                 </form>

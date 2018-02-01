@@ -5,33 +5,25 @@ import toastr from 'toastr';
 import ExpensesSection from './ExpensesSection'
 
 export default class DetailsPage extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
+        state = {
             budget: '',
             income: '',
             expenses: [],
         };
 
-        this.onChangeHandler = this.onChangeHandler.bind(this);
-        this.onSubmitHandler = this.onSubmitHandler.bind(this);
-        this.getData = this.getData.bind(this);
-    }
-
-    componentDidMount() {
+    componentDidMount = () => {
         this.getData();
     }
 
-    componentWillMount() {
+    componentWillMount = () => {
         this.getData();
     }
 
-    onChangeHandler(e) {
+    onChangeHandler = (e) => {
         this.setState({[e.target.name]: e.target.value});
     }
 
-    async onSubmitHandler(e) {
+    onSubmitHandler = async (e) => {
         e.preventDefault();
         const res = await changeBudget(this.props.match.params.id, this.props.match.params.year, this.state.income, this.state.budget, this.state.expenses);
         if (!res.success) {
@@ -47,7 +39,7 @@ export default class DetailsPage extends Component {
         toastr.success('Income and Budget changed successfully');
     }
 
-    async getData() {
+    getData = async () => {
         let {year, id} = this.props.match.params;
         const month = await getMonthDetails(year, id);
         this.setState({

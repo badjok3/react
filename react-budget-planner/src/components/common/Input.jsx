@@ -1,19 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-
-export default class Input extends Component {
-    render() {
-        const { name, type = 'text', value, onChange, label } = this.props;
-        return (
-            <div>
-                <label htmlFor="new-email" className="form-control-label">{label}</label>
-                <input
-                    onChange={onChange}
-                    name={name}
-                    id={name}
-                    type={type}
-                    value={value} />
-            </div>
-        );
-    }
+const input = (props) => {
+    const { name, type = 'text', value, onChange, label } = props;
+    return (
+        <div>
+            <label htmlFor="new-email" className="form-control-label">{label}</label>
+            <input
+                onChange={onChange}
+                name={name}
+                id={name}
+                type={type}
+                value={value} />
+        </div>
+    );
 }
+
+export default input;
